@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://equipilateseuropa.com/sitemap.xml
+
+# Equipilates Europa - Professional Pilates Equipment
+# https://equipilateseuropa.com
