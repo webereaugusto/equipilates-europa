@@ -27,7 +27,7 @@ function getCookie(name) {
 }
 
 // Detectar idioma automaticamente
-// Prioridade: 1. Escolha manual (localStorage) → 2. Cookie geo-IP (Vercel) → 3. Browser language → 4. Espanhol
+// Prioridade: 1. Escolha manual (localStorage) → 2. Idioma do browser → 3. Geo-IP (Vercel) → 4. Espanhol
 function detectLanguage() {
     // 1. Escolha manual já salva pelo usuário
     const saved = localStorage.getItem('language');
@@ -35,13 +35,7 @@ function detectLanguage() {
         return saved;
     }
 
-    // 2. Cookie definido pelo Vercel Edge Middleware (geo-IP)
-    const geoCookie = getCookie('detected-lang');
-    if (geoCookie && SUPPORTED_LANGS.includes(geoCookie)) {
-        return geoCookie;
-    }
-
-    // 3. Idioma do navegador
+    // 2. Idioma do navegador (prioridade principal)
     const browserLangs = navigator.languages || [navigator.language || navigator.userLanguage || ''];
     for (const bl of browserLangs) {
         const lang = bl.toLowerCase();
@@ -49,6 +43,12 @@ function detectLanguage() {
         if (lang.startsWith('es')) return 'es';
         if (lang.startsWith('en')) return 'en';
         if (lang.startsWith('de')) return 'de';
+    }
+
+    // 3. Cookie definido pelo Vercel Edge Middleware (geo-IP / localização)
+    const geoCookie = getCookie('detected-lang');
+    if (geoCookie && SUPPORTED_LANGS.includes(geoCookie)) {
+        return geoCookie;
     }
 
     // 4. Fallback: Espanhol
