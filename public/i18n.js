@@ -152,6 +152,7 @@ function changeLanguage(lang) {
     }
     
     currentLang = lang;
+    window.currentLang = lang;
     localStorage.setItem('language', lang);
     
     // Se as traduções já estiverem carregadas, aplicar imediatamente
@@ -182,8 +183,14 @@ document.addEventListener('DOMContentLoaded', async () => {
     document.documentElement.lang = currentLang === 'pt-BR' ? 'pt-BR' : currentLang;
 });
 
+// Retorna o idioma atual (sempre atualizado)
+function getCurrentLang() {
+    return currentLang;
+}
+
 // Exportar funções para uso global
 window.changeLanguage = changeLanguage;
+window.getCurrentLang = getCurrentLang;
 window.t = t;
 window.I18N = I18N;
 window.applyI18nStrings = applyI18nStrings;

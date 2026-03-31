@@ -1152,10 +1152,10 @@ function initGalleryFilters() {
             
             var sb = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
             
-            // Buscar produtos ativos com categoria
+            // Buscar produtos ativos com categoria e campos traduzidos
             var prodResult = await sb
                 .from('products')
-                .select('id, title, slug, category:categories(name, slug)')
+                .select('id, title, title_en, title_es, title_de, slug, category:categories(name, slug)')
                 .eq('is_active', true)
                 .order('order_index');
             
@@ -1185,22 +1185,27 @@ function initGalleryFilters() {
             // Embaralhar produtos
             var shuffled = shuffleArray(products);
             
+            // Obter idioma atual
+            var lang = (window.getCurrentLang && window.getCurrentLang()) || localStorage.getItem('language') || 'es';
+            
             // Gerar cards HTML
             shuffled.forEach(function(product) {
                 var catSlug = product.category ? product.category.slug : '';
                 var catInfo = categoryMap[catSlug] || { filterClass: 'outros', label: catSlug.toUpperCase() };
                 var imgUrl = imageMap[product.id] || staticImageMap[product.slug];
-                if (!imgUrl) return; // Pular se sem nenhuma imagem
+                if (!imgUrl) return;
+                
+                var displayTitle = (lang !== 'pt-BR' && product['title_' + lang]) ? product['title_' + lang] : product.title;
                 
                 var item = document.createElement('a');
                 item.href = '/produtos/' + product.slug;
                 item.className = 'gallery-item ' + catInfo.filterClass;
                 item.innerHTML = 
                     '<div class="gallery-img-wrapper">' +
-                        '<img src="' + imgUrl + '" alt="Equipamentos de Pilates - ' + product.title + ' Equipilates" loading="lazy">' +
+                        '<img src="' + imgUrl + '" alt="' + displayTitle + ' - Equipilates" loading="lazy">' +
                         '<div class="gallery-overlay">' +
                             '<span class="gallery-cat">' + catInfo.label + '</span>' +
-                            '<h3 class="gallery-title">' + product.title + '</h3>' +
+                            '<h3 class="gallery-title">' + displayTitle + '</h3>' +
                         '</div>' +
                     '</div>';
                 
@@ -1234,21 +1239,25 @@ function initGalleryFilters() {
         galleryGrid.innerHTML = '';
         galleryRendered = true;
         
+        var lang = (window.getCurrentLang && window.getCurrentLang()) || localStorage.getItem('language') || 'es';
+        
         cached.products.forEach(function(product) {
             var catSlug = product.category ? product.category.slug : '';
             var catInfo = categoryMap[catSlug] || { filterClass: 'outros', label: catSlug.toUpperCase() };
             var imgUrl = cached.imageMap[product.id] || staticImageMap[product.slug];
-            if (!imgUrl) return; // Pular se sem nenhuma imagem
+            if (!imgUrl) return;
+            
+            var displayTitle = (lang !== 'pt-BR' && product['title_' + lang]) ? product['title_' + lang] : product.title;
             
             var item = document.createElement('a');
             item.href = '/produtos/' + product.slug;
             item.className = 'gallery-item ' + catInfo.filterClass;
             item.innerHTML = 
                 '<div class="gallery-img-wrapper">' +
-                    '<img src="' + imgUrl + '" alt="Equipamentos de Pilates - ' + product.title + ' Equipilates" loading="lazy">' +
+                    '<img src="' + imgUrl + '" alt="' + displayTitle + ' - Equipilates" loading="lazy">' +
                     '<div class="gallery-overlay">' +
                         '<span class="gallery-cat">' + catInfo.label + '</span>' +
-                        '<h3 class="gallery-title">' + product.title + '</h3>' +
+                        '<h3 class="gallery-title">' + displayTitle + '</h3>' +
                     '</div>' +
                 '</div>';
             

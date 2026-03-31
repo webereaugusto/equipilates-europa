@@ -2,6 +2,9 @@
   "buildCommand": "",
   "outputDirectory": "public",
   "framework": null,
+  "rewrites": [
+    { "source": "/produtos/:slug", "destination": "/produtos/index.html" }
+  ],
   "headers": [
     {
       "source": "/(.*)",
