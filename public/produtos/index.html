@@ -136,6 +136,10 @@
         var SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imhpam1ic3hjdmN1Z25ta3ZsZGdsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njg2Nzk1MzUsImV4cCI6MjA4NDI1NTUzNX0.Q4Hy-K8RxhVDCarj_ojD5ILb11iO4Jk7KC-5fYlrTh0';
         var WA_PHONE = '5521967329318';
 
+        // Produto carregado (salvo para re-render ao trocar idioma)
+        var _product = null;
+        var _images = null;
+
         var labels = {
             'pt-BR': {
                 warranty2y: '2 anos de garantia',
@@ -193,7 +197,7 @@
                 cta: 'Angebot anfordern',
                 descTab: 'Beschreibung',
                 specsTab: 'Spezifikationen',
-                optTab: 'Optionales',
+                optTab: 'Optionals',
                 noSpecs: 'Keine Spezifikationen registriert.',
                 noOpt: 'Keine Optionen verfügbar.',
                 loading: 'Produkt wird geladen...',
@@ -223,6 +227,143 @@
             return product.category && product.category.slug === 'acessorios';
         }
 
+        // ==========================================
+        // SELETOR DE IDIOMA
+        // ==========================================
+
+        function applyLangUI(lang) {
+            document.querySelectorAll('.lang-btn').forEach(function(btn) {
+                var isActive = btn.dataset.lang === lang;
+                btn.classList.toggle('active', isActive);
+                if (isActive) {
+                    var label = btn.dataset.label || btn.textContent.trim();
+                    var toggleLabel = document.querySelector('.lang-toggle .lang-toggle-label');
+                    if (toggleLabel) toggleLabel.textContent = label;
+                }
+            });
+            document.documentElement.lang = lang === 'pt-BR' ? 'pt-BR' : lang;
+        }
+
+        function onLangChange(newLang) {
+            // Salvar preferência e atualizar i18n.js
+            localStorage.setItem('language', newLang);
+            if (typeof window.changeLanguage === 'function') {
+                window.changeLanguage(newLang);
+            } else {
+                // i18n.js ainda não carregou — aguardar e aplicar
+                window.currentLang = newLang;
+            }
+            applyLangUI(newLang);
+            // Re-renderizar conteúdo do produto no novo idioma
+            if (_product) refreshProductContent();
+        }
+
+        function initLangSwitcher() {
+            var langDropdown = document.querySelector('.lang-dropdown');
+            var langToggle = langDropdown && langDropdown.querySelector('.lang-toggle');
+
+            // Sincronizar visual com o idioma atual
+            applyLangUI(getLang());
+
+            // Botões de idioma
+            document.querySelectorAll('.lang-btn').forEach(function(btn) {
+                btn.addEventListener('click', function() {
+                    var newLang = btn.dataset.lang;
+                    onLangChange(newLang);
+                    if (langDropdown && langDropdown.classList.contains('open')) {
+                        langDropdown.classList.remove('open');
+                        if (langToggle) langToggle.setAttribute('aria-expanded', 'false');
+                    }
+                });
+            });
+
+            // Toggle abrir/fechar dropdown
+            if (langToggle && langDropdown) {
+                langToggle.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    var isOpen = langDropdown.classList.toggle('open');
+                    langToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+                });
+
+                document.addEventListener('click', function(e) {
+                    if (!langDropdown.contains(e.target) && langDropdown.classList.contains('open')) {
+                        langDropdown.classList.remove('open');
+                        langToggle.setAttribute('aria-expanded', 'false');
+                    }
+                });
+            }
+        }
+
+        // ==========================================
+        // ATUALIZAÇÃO DE CONTEÚDO AO TROCAR IDIOMA
+        // ==========================================
+
+        function refreshProductContent() {
+            var product = _product;
+            if (!product) return;
+            var detail = document.getElementById('productDetail');
+            if (!detail) return;
+
+            var title = getTranslatedField(product, 'title');
+            var shortDesc = getTranslatedField(product, 'short_description');
+            var detailedDesc = getTranslatedField(product, 'detailed_description');
+            var isAcc = isAccessory(product);
+
+            document.title = title + ' | Equipilates Europa';
+            var metaDesc = document.querySelector('meta[name="description"]');
+            if (metaDesc) metaDesc.setAttribute('content', shortDesc.substring(0, 160));
+
+            var el = function(sel) { return detail.querySelector(sel); };
+
+            var bc = el('.product-breadcrumb a[data-i18n="nav.produtos"]');
+            if (bc) bc.textContent = l('breadProducts');
+            var bcCurrent = el('.breadcrumb-current');
+            if (bcCurrent) bcCurrent.textContent = title;
+
+            var titleEl = el('.product-title');
+            if (titleEl) titleEl.textContent = title;
+            var shortDescEl = el('.product-short-desc');
+            if (shortDescEl) shortDescEl.textContent = shortDesc;
+
+            var warrantyEl = el('.feature-warranty');
+            if (warrantyEl) warrantyEl.textContent = isAcc ? l('warranty3m') : l('warranty2y');
+            var shippingEl = el('.feature-shipping');
+            if (shippingEl) shippingEl.textContent = l('shipping');
+            var qualityEl = el('.feature-quality');
+            if (qualityEl) qualityEl.textContent = l('quality');
+
+            var ctaText = el('.cta-text');
+            if (ctaText) ctaText.textContent = l('cta');
+            var ctaLink = el('.product-cta');
+            if (ctaLink) {
+                var waText = encodeURIComponent('Olá, vim pelo site da Equipilates Europa e gostaria de saber mais sobre: ' + title);
+                ctaLink.href = 'https://wa.me/' + WA_PHONE + '?text=' + waText;
+            }
+
+            var tabs = detail.querySelectorAll('.details-tab');
+            if (tabs[0]) tabs[0].textContent = l('descTab');
+            if (tabs[1]) tabs[1].textContent = l('specsTab');
+            if (tabs[2]) tabs[2].textContent = l('optTab');
+
+            var descContent = el('.desc-content');
+            if (descContent) descContent.innerHTML = detailedDesc || shortDesc;
+
+            // Atualizar mensagens de "sem dados" (specs e opcionais vazios)
+            var tabPanels = detail.querySelectorAll('.tab-panel');
+            if (tabPanels[1]) {
+                var specsEmpty = tabPanels[1].querySelector('.empty-msg');
+                if (specsEmpty) specsEmpty.textContent = l('noSpecs');
+            }
+            if (tabPanels[2]) {
+                var optsEmpty = tabPanels[2].querySelector('.empty-msg');
+                if (optsEmpty) optsEmpty.textContent = l('noOpt');
+            }
+        }
+
+        // ==========================================
+        // CARREGAMENTO DO PRODUTO
+        // ==========================================
+
         var pathParts = window.location.pathname.split('/').filter(Boolean);
         var slug = pathParts[pathParts.length - 1];
 
@@ -230,6 +371,11 @@
             window.location.href = '/#galeria';
             return;
         }
+
+        // Inicializar seletor de idioma imediatamente (sem esperar o produto)
+        document.addEventListener('DOMContentLoaded', function() {
+            initLangSwitcher();
+        });
 
         function waitForSupabase(cb, attempts) {
             if (typeof supabase !== 'undefined' && supabase.createClient) {
@@ -268,6 +414,8 @@
 
                 var images = (imgResult.data || []);
 
+                _product = product;
+                _images = images;
                 renderProduct(product, images);
 
             } catch (err) {
@@ -316,7 +464,7 @@
             ctaLink.removeAttribute('id');
             clone.querySelector('.cta-text').textContent = l('cta');
 
-            // Images
+            // Imagens
             var mainImg = clone.querySelector('#mainImage');
             mainImg.removeAttribute('id');
             var primaryImg = images.find(function(i) { return i.is_primary; }) || images[0];
@@ -341,18 +489,18 @@
                 });
             }
 
-            // Tabs labels
+            // Labels das abas
             var tabs = clone.querySelectorAll('.details-tab');
             tabs[0].textContent = l('descTab');
             tabs[1].textContent = l('specsTab');
             tabs[2].textContent = l('optTab');
 
-            // Description tab
+            // Aba Descrição
             var descPanel = clone.querySelector('#tabDescription');
             descPanel.removeAttribute('id');
             descPanel.innerHTML = '<div class="desc-content">' + (detailedDesc || shortDesc) + '</div>';
 
-            // Specs tab
+            // Aba Especificações
             var specsPanel = clone.querySelector('#tabSpecs');
             specsPanel.removeAttribute('id');
             var specs = product.technical_specs;
@@ -364,7 +512,7 @@
                 specsPanel.innerHTML = '<p class="empty-msg">' + l('noSpecs') + '</p>';
             }
 
-            // Optionals tab
+            // Aba Opcionais
             var optPanel = clone.querySelector('#tabOptionals');
             optPanel.removeAttribute('id');
             var opts = product.optional_items;
@@ -381,13 +529,12 @@
             detail.innerHTML = '';
             detail.appendChild(clone);
 
-            // Tab switching
+            // Troca de abas
             detail.querySelectorAll('.details-tab').forEach(function(tab) {
                 tab.addEventListener('click', function() {
                     detail.querySelectorAll('.details-tab').forEach(function(t) { t.classList.remove('active'); });
                     detail.querySelectorAll('.tab-panel').forEach(function(p) { p.classList.remove('active'); });
                     tab.classList.add('active');
-                    var targetId = 'tab' + tab.dataset.tab.charAt(0).toUpperCase() + tab.dataset.tab.slice(1);
                     var panel = detail.querySelector('.tab-panel:nth-child(' + (Array.from(tab.parentNode.children).indexOf(tab) + 1) + ')');
                     if (panel) panel.classList.add('active');
                 });
@@ -402,9 +549,7 @@
                 "brand": { "@type": "Brand", "name": "Equipilates" },
                 "manufacturer": { "@type": "Organization", "name": "Equipilates" }
             };
-            if (primaryImg) {
-                jsonLd.image = primaryImg.url;
-            }
+            if (primaryImg) jsonLd.image = primaryImg.url;
             var scriptTag = document.createElement('script');
             scriptTag.type = 'application/ld+json';
             scriptTag.textContent = JSON.stringify(jsonLd);
