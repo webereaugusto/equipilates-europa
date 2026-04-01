@@ -106,10 +106,8 @@ function applyI18nStrings() {
     
     document.querySelectorAll('[data-i18n]').forEach(el => {
         const key = el.getAttribute('data-i18n');
-        const translation = translations[key];
-        
-        if (translation && typeof translation === 'string') {
-            el.textContent = translation;
+        if (key != null && Object.prototype.hasOwnProperty.call(translations, key) && typeof translations[key] === 'string') {
+            el.textContent = translations[key];
         }
     });
     
