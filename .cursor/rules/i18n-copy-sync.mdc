@@ -1,0 +1,28 @@
+---
+description: Ao alterar textos do site, usar PT como referência e espelhar em todos os idiomas (en, es, de).
+alwaysApply: true
+---
+
+# Cópias e traduções (i18n)
+
+## Regra
+
+Quando o pedido envolver **texto visível ao usuário** (marketing, UI, FAQ, CTAs, metadados traduzidos, etc.):
+
+1. **Fonte da verdade para o pedido:** o usuário descreve mudanças com base na versão em **português** (`public/locales/pt-BR.json` e trechos em PT em HTML/JS quando existirem).
+2. **Obrigatório:** toda alteração feita em português deve ser **replicada com o mesmo sentido** (adaptada ao idioma) em **todas** as traduções do projeto:
+   - `public/locales/en.json`
+   - `public/locales/es.json`
+   - `public/locales/de.json`
+3. **Strings fora dos JSON:** se o texto estiver só em `public/index.html`, `public/script.js`, `public/i18n.js`, `public/produtos/index.html` ou similares, atualizar o equivalente em **cada idioma** / fluxo i18n que o projeto use para aquele trecho — não deixar um idioma desatualizado.
+
+## Checklist antes de concluir
+
+- [ ] `pt-BR` atualizado conforme o pedido.
+- [ ] `en`, `es` e `de` atualizados para a mesma mensagem (tom e informação equivalentes).
+- [ ] Chaves de i18n alinhadas entre os quatro arquivos (mesmas keys; sem chave órfã).
+
+## Evitar
+
+- Alterar só `pt-BR` e encerrar a tarefa.
+- Traduzir literalmente de forma que quebre tom de marca; preferir equivalência natural em cada idioma mantendo o conteúdo e promessas alinhados ao PT.

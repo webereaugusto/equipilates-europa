@@ -6,6 +6,28 @@ let currentScroll = 0;
 let targetScroll = 0;
 let ease = 0.075;
 
+function a11yPlaceholder(key, indexOneBased, fallbackTemplate) {
+    if (typeof window.t !== 'function') return fallbackTemplate.replace(/\{n\}/g, String(indexOneBased));
+    const raw = window.t(key);
+    if (!raw || raw === key) return fallbackTemplate.replace(/\{n\}/g, String(indexOneBased));
+    return raw.replace(/\{n\}/g, String(indexOneBased));
+}
+
+window.refreshDynamicAriaLabels = function refreshDynamicAriaLabels() {
+    document.querySelectorAll('.nav-dot').forEach((dot, i) => {
+        dot.setAttribute('aria-label', a11yPlaceholder('a11y.goToSlide', i + 1, 'Ir para slide {n}'));
+    });
+    document.querySelectorAll('.classica-dot').forEach((dot, i) => {
+        dot.setAttribute('aria-label', a11yPlaceholder('a11y.goToSlide', i + 1, 'Ir para slide {n}'));
+    });
+    document.querySelectorAll('.contemporanea-dot').forEach((dot, i) => {
+        dot.setAttribute('aria-label', a11yPlaceholder('a11y.goToSlide', i + 1, 'Ir para slide {n}'));
+    });
+    document.querySelectorAll('.testimonials-social-dots button').forEach((dot, i) => {
+        dot.setAttribute('aria-label', a11yPlaceholder('a11y.goToTestimonial', i + 1, 'Ir para depoimento {n}'));
+    });
+};
+
 // ==========================================
 // ELASTIC SLIDE ANIMATIONS
 // ==========================================
@@ -224,7 +246,7 @@ function initClassicaCarousel() {
         for (let i = 0; i < totalDots; i++) {
             const dot = document.createElement('button');
             dot.classList.add('classica-dot');
-            dot.setAttribute('aria-label', `Ir para slide ${i + 1}`);
+            dot.setAttribute('aria-label', a11yPlaceholder('a11y.goToSlide', i + 1, 'Ir para slide {n}'));
             if (i === 0) dot.classList.add('active');
             dot.addEventListener('click', () => goToSlide(i));
             dotsContainer.appendChild(dot);
@@ -360,6 +382,7 @@ document.addEventListener('DOMContentLoaded', () => {
         initSmoothScrollMomentum();
         initGalleryFilters();
         initFAQAccordion();
+        initFactoryEuropeLightbox();
     };
     
     // Carrosséis são inicializados só quando visíveis (lazy init)
@@ -432,7 +455,7 @@ function initContemporaneaCarousel() {
         for (let i = 0; i < totalDots; i++) {
             const dot = document.createElement('button');
             dot.classList.add('contemporanea-dot');
-            dot.setAttribute('aria-label', `Ir para slide ${i + 1}`);
+            dot.setAttribute('aria-label', a11yPlaceholder('a11y.goToSlide', i + 1, 'Ir para slide {n}'));
             if (i === 0) dot.classList.add('active');
             dot.addEventListener('click', () => goToSlide(i));
             dotsContainer.appendChild(dot);
@@ -570,9 +593,9 @@ function initHeroSlider() {
         'pt-BR': [
             {
                 number: '01',
-                tag: 'FÁBRICA LÍDER DESDE 2006',
+                tag: 'FABRICADO NA EUROPA. RECONHECIDO NO MUNDO.',
                 title: ['EQUIPAMENTOS DE PILATES', 'PROFISSIONAIS PARA SEU ESTÚDIO'],
-                description: 'Linha Clássica e Contemporânea com 2 anos de garantia.<br/>Mais de 35.000 estúdios equipados em 25+ países.',
+                description: 'Equipamentos de Pilates produzidos na Espanha com padrão europeu.<br/>Entrega rápida e suporte técnico em toda a União Europeia.',
                 cta1: { text: 'Solicitar Orçamento', link: buildWhatsAppLink('Olá, vim pelo site da Equipilates e gostaria de solicitar um orçamento.') },
                 cta2: { text: 'Veja Mais', link: '#diferencial' }
             },
@@ -586,9 +609,9 @@ function initHeroSlider() {
             },
             {
                 number: '03',
-                tag: 'LÍDER GLOBAL',
-                title: ['A MAIOR FÁBRICA', 'DE PILATES DA AMÉRICA LATINA'],
-                description: 'Desde 2006 exportando para 25+ países. Fábrica própria de 5.000m²<br/>com tecnologia de ponta em Resende-RJ.',
+                tag: 'PRESENÇA GLOBAL',
+                title: ['PRODUÇÃO LOCAL', 'NA EUROPA'],
+                description: 'Operação estruturada em Yecla, Espanha, com logística para toda a UE.<br/>Sem importação, sem burocracia, com suporte local.',
                 cta1: { text: 'Veja Mais', link: '#diferencial' },
                 cta2: { text: 'Falar com Especialista', link: buildWhatsAppLink('Olá, gostaria de conhecer mais sobre a Equipilates.') }
             }
@@ -596,9 +619,9 @@ function initHeroSlider() {
         'en': [
             {
                 number: '01',
-                tag: 'LEADING FACTORY SINCE 2006',
+                tag: 'MADE IN EUROPE. RECOGNIZED WORLDWIDE.',
                 title: ['PILATES EQUIPMENT', 'PROFESSIONAL FOR YOUR STUDIO'],
-                description: 'Classic and Contemporary Lines with 2-year warranty.<br/>Over 35,000 studios equipped in 25+ countries.',
+                description: 'Pilates equipment produced in Spain with European standards.<br/>Fast delivery and technical support across the European Union.',
                 cta1: { text: 'Request a Quote', link: buildWhatsAppLink('Hello, I would like a quote for Pilates equipment.') },
                 cta2: { text: 'See More', link: '#diferencial' }
             },
@@ -612,9 +635,9 @@ function initHeroSlider() {
             },
             {
                 number: '03',
-                tag: 'GLOBAL LEADER',
-                title: ['THE LARGEST PILATES', 'FACTORY IN LATIN AMERICA'],
-                description: 'Exporting to 25+ countries since 2006. Own 5,000m² factory<br/>with cutting-edge technology in Brazil.',
+                tag: 'GLOBAL PRESENCE',
+                title: ['LOCAL PRODUCTION', 'IN EUROPE'],
+                description: 'Structured operation in Yecla, Spain, with logistics across the EU.<br/>No import bureaucracy and local technical support.',
                 cta1: { text: 'See More', link: '#diferencial' },
                 cta2: { text: 'Talk to an Expert', link: buildWhatsAppLink('Hello, I would like to learn more about Equipilates.') }
             }
@@ -622,9 +645,9 @@ function initHeroSlider() {
         'es': [
             {
                 number: '01',
-                tag: 'FÁBRICA LÍDER DESDE 2006',
+                tag: 'FABRICADO EN EUROPA. RECONOCIDO EN EL MUNDO.',
                 title: ['EQUIPOS DE PILATES', 'PROFESIONALES PARA SU ESTUDIO'],
-                description: 'Línea Clásica y Contemporánea con 2 años de garantía.<br/>Más de 35.000 estudios equipados en 25+ países.',
+                description: 'Equipos de Pilates producidos en España con estándar europeo.<br/>Entrega rápida y soporte técnico en toda la Unión Europea.',
                 cta1: { text: 'Solicitar Cotización', link: buildWhatsAppLink('Hola, quisiera una cotización para equipos de Pilates.') },
                 cta2: { text: 'Ver Más', link: '#diferencial' }
             },
@@ -638,9 +661,9 @@ function initHeroSlider() {
             },
             {
                 number: '03',
-                tag: 'LÍDER GLOBAL',
-                title: ['LA MAYOR FÁBRICA', 'DE PILATES DE LATINOAMÉRICA'],
-                description: 'Exportando a 25+ países desde 2006. Fábrica propia de 5.000m²<br/>con tecnología de punta en Brasil.',
+                tag: 'PRESENCIA GLOBAL',
+                title: ['PRODUCCIÓN LOCAL', 'EN EUROPA'],
+                description: 'Operación estructurada en Yecla, España, con logística para toda la UE.<br/>Sin importación, sin burocracia y con soporte local.',
                 cta1: { text: 'Ver Más', link: '#diferencial' },
                 cta2: { text: 'Hablar con Experto', link: buildWhatsAppLink('Hola, me gustaría conocer más sobre Equipilates.') }
             }
@@ -648,9 +671,9 @@ function initHeroSlider() {
         'de': [
             {
                 number: '01',
-                tag: 'FÜHRENDE FABRIK SEIT 2006',
+                tag: 'IN EUROPA HERGESTELLT. WELTWEIT ANERKANNT.',
                 title: ['PILATES-GERÄTE', 'PROFESSIONELL FÜR IHR STUDIO'],
-                description: 'Klassische und Zeitgenössische Linien mit 2 Jahren Garantie.<br/>Über 35.000 Studios in 25+ Ländern ausgestattet.',
+                description: 'Pilates-Geräte aus spanischer Produktion mit europäischem Standard.<br/>Schnelle Lieferung und technischer Support in der gesamten EU.',
                 cta1: { text: 'Angebot Anfordern', link: buildWhatsAppLink('Hallo, ich möchte ein Angebot für Pilates-Geräte.') },
                 cta2: { text: 'Mehr Sehen', link: '#diferencial' }
             },
@@ -664,9 +687,9 @@ function initHeroSlider() {
             },
             {
                 number: '03',
-                tag: 'GLOBALER MARKTFÜHRER',
-                title: ['DIE GRÖSSTE PILATES-', 'FABRIK IN LATEINAMERIKA'],
-                description: 'Seit 2006 in 25+ Länder exportierend. Eigene 5.000m² Fabrik<br/>mit modernster Technologie in Brasilien.',
+                tag: 'GLOBALE PRÄSENZ',
+                title: ['LOKALE PRODUKTION', 'IN EUROPA'],
+                description: 'Strukturierte Operation in Yecla, Spanien, mit Logistik für die gesamte EU.<br/>Ohne Importbürokratie und mit lokalem Support.',
                 cta1: { text: 'Mehr Sehen', link: '#diferencial' },
                 cta2: { text: 'Mit Experten Sprechen', link: buildWhatsAppLink('Hallo, ich möchte mehr über Equipilates erfahren.') }
             }
@@ -982,6 +1005,10 @@ function initHeroSlider() {
     
     // Start auto-play on load
     startAutoPlay();
+
+    if (typeof window.refreshDynamicAriaLabels === 'function') {
+        window.refreshDynamicAriaLabels();
+    }
     
     // Pause auto-play when tab is not visible
     document.addEventListener('visibilitychange', () => {
@@ -2022,7 +2049,7 @@ function initTestimonialsSocialCarousel() {
         const totalDots = maxIndex + 1;
         for (let i = 0; i < totalDots; i++) {
             const dot = document.createElement('button');
-            dot.setAttribute('aria-label', `Ir para depoimento ${i + 1}`);
+            dot.setAttribute('aria-label', a11yPlaceholder('a11y.goToTestimonial', i + 1, 'Ir para depoimento {n}'));
             if (i === 0) dot.classList.add('active');
             dot.addEventListener('click', () => goToSlide(i));
             dotsContainer.appendChild(dot);
@@ -2142,6 +2169,59 @@ function initFAQAccordion() {
                 item.classList.add('active');
             }
         });
+    });
+}
+
+function initFactoryEuropeLightbox() {
+    const section = document.getElementById('fabrica-espanha');
+    const lightbox = document.getElementById('factoryEuropeLightbox');
+    if (!section || !lightbox) return;
+
+    const imgEl = document.getElementById('factoryEuropeLightboxImg');
+    const closeTriggers = lightbox.querySelectorAll('[data-factory-lightbox-close]');
+    const thumbs = section.querySelectorAll('.factory-europe-item');
+
+    function openLightbox(src, alt) {
+        if (!imgEl) return;
+        imgEl.src = src;
+        imgEl.alt = alt || '';
+        lightbox.classList.add('is-open');
+        lightbox.setAttribute('aria-hidden', 'false');
+        document.body.style.overflow = 'hidden';
+        const closeBtn = lightbox.querySelector('.factory-lightbox-close');
+        if (closeBtn) closeBtn.focus();
+    }
+
+    function closeLightbox() {
+        lightbox.classList.remove('is-open');
+        lightbox.setAttribute('aria-hidden', 'true');
+        if (imgEl) {
+            imgEl.removeAttribute('src');
+            imgEl.alt = '';
+        }
+        document.body.style.overflow = '';
+    }
+
+    thumbs.forEach((btn) => {
+        btn.addEventListener('click', () => {
+            const thumb = btn.querySelector('img');
+            if (!thumb) return;
+            const src = thumb.currentSrc || thumb.getAttribute('src') || '';
+            openLightbox(src, thumb.getAttribute('alt') || '');
+        });
+    });
+
+    closeTriggers.forEach((el) => {
+        el.addEventListener('click', (e) => {
+            e.stopPropagation();
+            closeLightbox();
+        });
+    });
+
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && lightbox.classList.contains('is-open')) {
+            closeLightbox();
+        }
     });
 }
 

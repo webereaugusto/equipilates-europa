@@ -4,8 +4,9 @@
   "description": "Equipilates Europa - Professional Pilates Equipment (International site)",
   "private": true,
   "scripts": {
-    "dev": "npx serve public -l 3000",
-    "preview": "npx serve public -l 3000"
+    "dev": "node dev-server.cjs",
+    "preview": "node dev-server.cjs",
+    "serve:static": "npx serve public -l 3000"
   },
   "dependencies": {
     "@vercel/edge": "^1.2.2"

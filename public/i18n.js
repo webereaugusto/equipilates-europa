@@ -120,6 +120,28 @@ function applyI18nStrings() {
             el.setAttribute('placeholder', translation);
         }
     });
+
+    // Aplicar traduções em aria-label
+    document.querySelectorAll('[data-i18n-aria-label]').forEach(el => {
+        const key = el.getAttribute('data-i18n-aria-label');
+        const translation = translations[key];
+
+        if (translation && typeof translation === 'string') {
+            el.setAttribute('aria-label', translation);
+        }
+    });
+
+    document.querySelectorAll('[data-i18n-alt]').forEach(el => {
+        const key = el.getAttribute('data-i18n-alt');
+        const translation = translations[key];
+        if (translation && typeof translation === 'string') {
+            el.setAttribute('alt', translation);
+        }
+    });
+
+    if (typeof window.refreshDynamicAriaLabels === 'function') {
+        window.refreshDynamicAriaLabels();
+    }
     
     // Atualizar seletor de idioma visual (se existir)
     updateLanguageSelector();

@@ -9101,3 +9101,207 @@ input:focus-visible {
 .stat-label {
     color: rgba(255, 255, 255, 0.85);
 }
+
+/* Seções de carrossel Linha Clássica / Contemporânea ocultas (conteúdo mantido no DOM para reativação) */
+.section-linha-classica,
+.section-linha-contemporanea {
+    display: none !important;
+}
+
+/* ==========================================
+   FÁBRICA EUROPA — galeria images_europe
+   ========================================== */
+.section-factory-europe {
+    padding: 100px 0 120px;
+    background: var(--black);
+}
+
+.factory-europe-header {
+    text-align: center;
+    max-width: 820px;
+    margin: 0 auto 48px;
+    padding: 0 24px;
+}
+
+.factory-europe-header .section-label {
+    display: inline-block;
+    color: var(--caramel);
+    font-family: 'Sora', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+}
+
+.factory-europe-header .title-large {
+    color: var(--white);
+    margin-bottom: 20px;
+}
+
+.factory-europe-header .title-large .accent {
+    color: var(--caramel);
+}
+
+.factory-europe-subtitle {
+    font-size: 1.05rem;
+    line-height: 1.65;
+    color: rgba(255, 255, 255, 0.78);
+    margin: 0;
+}
+
+.factory-europe-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    padding: 0 24px;
+}
+
+button.factory-europe-item {
+    border: none;
+    padding: 0;
+    margin: 0;
+    font: inherit;
+    color: inherit;
+    display: block;
+    width: 100%;
+    cursor: zoom-in;
+    border-radius: 0;
+    overflow: hidden;
+    background: #1a1a1a;
+    aspect-ratio: 4 / 3;
+    position: relative;
+}
+
+.factory-europe-item:focus-visible {
+    outline: 2px solid var(--caramel);
+    outline-offset: 3px;
+}
+
+.factory-europe-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.45s ease;
+    pointer-events: none;
+}
+
+.factory-europe-item:hover img {
+    transform: scale(1.03);
+}
+
+/* Lightbox fábrica Europa (elemento no final do body → cobre o viewport inteiro) */
+.factory-lightbox {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    min-height: 100vh;
+    min-height: 100dvh;
+    z-index: 10050;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    box-sizing: border-box;
+}
+
+.factory-lightbox.is-open {
+    display: flex;
+}
+
+.factory-lightbox-backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.88);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+}
+
+.factory-lightbox-inner {
+    position: relative;
+    z-index: 1;
+    max-width: min(96vw, 1400px);
+    max-height: min(92vh, 900px);
+    margin: auto;
+    animation: factoryLightboxIn 0.35s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes factoryLightboxIn {
+    from {
+        opacity: 0;
+        transform: scale(0.96) translateY(8px);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+.factory-lightbox-img {
+    display: block;
+    max-width: min(96vw, 1400px);
+    max-height: min(92vh, 900px);
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    box-shadow: 0 24px 80px rgba(0, 0, 0, 0.55);
+}
+
+.factory-lightbox-close {
+    position: absolute;
+    top: -12px;
+    right: -12px;
+    width: 44px;
+    height: 44px;
+    border: none;
+    border-radius: 50%;
+    background: rgba(0, 0, 0, 0.65);
+    color: #fff;
+    font-size: 28px;
+    line-height: 1;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s ease, transform 0.2s ease;
+    z-index: 2;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.factory-lightbox-close:hover {
+    background: var(--caramel);
+    color: #111;
+    transform: scale(1.05);
+}
+
+.factory-lightbox-close:focus-visible {
+    outline: 2px solid var(--caramel);
+    outline-offset: 2px;
+}
+
+@media (max-width: 1024px) {
+    .factory-europe-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 600px) {
+    .section-factory-europe {
+        padding: 72px 0 88px;
+    }
+
+    .factory-europe-grid {
+        grid-template-columns: 1fr;
+        gap: 10px;
+        padding: 0 16px;
+    }
+
+    .factory-lightbox-close {
+        top: 8px;
+        right: 8px;
+    }
+}

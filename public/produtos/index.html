@@ -4,9 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/jpeg" href="/images/favicon.jpg">
-    <title>Produto | Equipilates Europa</title>
-    <meta name="description" content="Equipamento profissional de Pilates - Equipilates Europa">
-    <link rel="canonical" href="https://equipilateseuropa.com/">
+    <title>Produto | Equipilates Europe</title>
+    <meta name="description" content="Equipamento profissional de Pilates - Equipilates Europe">
+    <link rel="canonical" href="https://equipilateseurope.eu/">
     <link rel="stylesheet" href="/styles.css">
     <link rel="stylesheet" href="/produtos/produto.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
@@ -27,12 +27,12 @@
         <div class="nav-menu">
             <a href="/" data-i18n="nav.home">Início</a>
             <a href="/#galeria" data-i18n="nav.produtos">Produtos</a>
-            <a href="https://wa.me/5521967329318?text=Ol%C3%A1%2C%20vim%20pelo%20site%20da%20Equipilates%20e%20gostaria%20de%20falar%20com%20um%20consultor." class="nav-cta-whatsapp" target="_blank" rel="noopener noreferrer" data-i18n="nav.contact">
+            <a href="https://wa.me/5521967329318" class="nav-cta-whatsapp" target="_blank" rel="noopener noreferrer" data-i18n="nav.contact" data-wa-link="nav">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
                 Contato
             </a>
         </div>
-        <div class="lang-switch lang-dropdown" aria-label="Selecionar idioma">
+        <div class="lang-switch lang-dropdown" data-i18n-aria-label="a11y.langSelector" aria-label="Seleccionar idioma">
             <button class="lang-toggle" type="button" aria-haspopup="true" aria-expanded="false">
                 <span class="lang-toggle-label">ES</span>
                 <svg class="lang-toggle-caret" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -46,7 +46,7 @@
                 <button class="lang-btn" type="button" data-lang="de" data-label="DE" role="menuitem">DE</button>
             </div>
         </div>
-        <button class="nav-toggle" aria-label="Menu">
+        <button class="nav-toggle" data-i18n-aria-label="a11y.menuToggle" aria-label="Menú">
             <span></span>
             <span></span>
             <span></span>
@@ -57,14 +57,14 @@
     <main class="product-detail" id="productDetail">
         <div class="product-loading" id="productLoading">
             <div class="loading-spinner"></div>
-            <p>Cargando producto...</p>
+            <p data-loading-text>Cargando producto...</p>
         </div>
     </main>
 
     <!-- Product Template (hidden, populated by JS) -->
     <template id="productTemplate">
         <div class="product-breadcrumb">
-            <a href="/">Equipilates</a>
+            <a href="/">Equipilates Europe</a>
             <span>/</span>
             <a href="/#galeria" data-i18n="nav.produtos">Productos</a>
             <span>/</span>
@@ -108,9 +108,9 @@
 
         <div class="product-details-section">
             <div class="details-tabs">
-                <button class="details-tab active" data-tab="description">Descripción</button>
-                <button class="details-tab" data-tab="specs">Especificaciones</button>
-                <button class="details-tab" data-tab="optionals">Opcionales</button>
+                <button class="details-tab active" data-tab="description" data-static-tab="desc">Descripción</button>
+                <button class="details-tab" data-tab="specs" data-static-tab="specs">Especificaciones</button>
+                <button class="details-tab" data-tab="optionals" data-static-tab="opt">Opcionales</button>
             </div>
             <div class="details-content">
                 <div class="tab-panel active" id="tabDescription"></div>
@@ -121,11 +121,13 @@
     </template>
 
     <!-- WhatsApp Floating Button -->
-    <a href="https://wa.me/5521967329318?text=Ol%C3%A1%2C%20vim%20pelo%20site%20da%20Equipilates%20e%20gostaria%20de%20falar%20com%20um%20consultor%20sobre%20equipamentos%20de%20Pilates."
+    <a href="https://wa.me/5521967329318"
        class="whatsapp-float"
        target="_blank"
        rel="noopener noreferrer"
-       aria-label="WhatsApp">
+       data-wa-link="float"
+       data-i18n-aria-label="a11y.whatsapp"
+       aria-label="Hablar con Equipilates Europe por WhatsApp">
         <svg viewBox="0 0 24 24" fill="#fff" width="28" height="28"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
     </a>
 
@@ -141,11 +143,15 @@
 
         var labels = {
             'pt-BR': {
+                defaultPageTitle: 'Produto | Equipilates Europe',
                 warranty2y: '2 anos de garantia',
                 warranty3m: '3 meses de garantia',
                 shipping: 'Envio para toda Europa',
                 quality: 'Qualidade Premium',
                 cta: 'Solicitar Orçamento',
+                titleSuffix: 'Equipilates Europe',
+                waGeneral: 'Olá, vim pelo site da Equipilates Europe e gostaria de falar com um consultor.',
+                waProductPrefix: 'Olá, vim pelo site da Equipilates Europe e gostaria de saber mais sobre: ',
                 descTab: 'Descrição',
                 specsTab: 'Especificações',
                 optTab: 'Opcionais',
@@ -157,11 +163,15 @@
                 breadProducts: 'Produtos'
             },
             'es': {
+                defaultPageTitle: 'Producto | Equipilates Europe',
                 warranty2y: '2 años de garantía',
                 warranty3m: '3 meses de garantía',
                 shipping: 'Envío a toda Europa',
                 quality: 'Calidad Premium',
                 cta: 'Solicitar Presupuesto',
+                titleSuffix: 'Equipilates Europe',
+                waGeneral: 'Hola, vengo del sitio de Equipilates Europe y me gustaría hablar con un asesor.',
+                waProductPrefix: 'Hola, vengo del sitio de Equipilates Europe y me gustaría saber más sobre: ',
                 descTab: 'Descripción',
                 specsTab: 'Especificaciones',
                 optTab: 'Opcionales',
@@ -173,11 +183,15 @@
                 breadProducts: 'Productos'
             },
             'en': {
+                defaultPageTitle: 'Product | Equipilates Europe',
                 warranty2y: '2 years warranty',
                 warranty3m: '3 months warranty',
                 shipping: 'Shipping across Europe',
                 quality: 'Premium Quality',
                 cta: 'Request a Quote',
+                titleSuffix: 'Equipilates Europe',
+                waGeneral: 'Hello, I came from the Equipilates Europe website and I would like to talk to a consultant.',
+                waProductPrefix: 'Hello, I came from the Equipilates Europe website and I would like to know more about: ',
                 descTab: 'Description',
                 specsTab: 'Specifications',
                 optTab: 'Optionals',
@@ -189,11 +203,15 @@
                 breadProducts: 'Products'
             },
             'de': {
+                defaultPageTitle: 'Produkt | Equipilates Europe',
                 warranty2y: '2 Jahre Garantie',
                 warranty3m: '3 Monate Garantie',
                 shipping: 'Versand in ganz Europa',
                 quality: 'Premium-Qualität',
                 cta: 'Angebot anfordern',
+                titleSuffix: 'Equipilates Europe',
+                waGeneral: 'Hallo, ich komme von der Equipilates-Europe-Website und möchte mit einem Berater sprechen.',
+                waProductPrefix: 'Hallo, ich komme von der Equipilates-Europe-Website und möchte mehr erfahren über: ',
                 descTab: 'Beschreibung',
                 specsTab: 'Spezifikationen',
                 optTab: 'Optionals',
@@ -213,6 +231,33 @@
         function l(key) {
             var lang = getLang();
             return (labels[lang] && labels[lang][key]) || labels['es'][key] || key;
+        }
+
+        function buildWaLink(text) {
+            return 'https://wa.me/' + WA_PHONE + '?text=' + encodeURIComponent(text);
+        }
+
+        function updateStaticTexts() {
+            if (!_product) {
+                document.title = l('defaultPageTitle');
+            }
+
+            var loading = document.querySelector('[data-loading-text]');
+            if (loading) loading.textContent = l('loading');
+
+            var descTab = document.querySelector('[data-static-tab="desc"]');
+            if (descTab) descTab.textContent = l('descTab');
+            var specsTab = document.querySelector('[data-static-tab="specs"]');
+            if (specsTab) specsTab.textContent = l('specsTab');
+            var optTab = document.querySelector('[data-static-tab="opt"]');
+            if (optTab) optTab.textContent = l('optTab');
+
+            var navWa = document.querySelector('[data-wa-link="nav"]');
+            if (navWa) navWa.href = buildWaLink(l('waGeneral'));
+            var floatWa = document.querySelector('[data-wa-link="float"]');
+            if (floatWa) {
+                floatWa.href = buildWaLink(l('waGeneral'));
+            }
         }
 
         function getTranslatedField(product, field) {
@@ -253,6 +298,7 @@
                 window.currentLang = newLang;
             }
             applyLangUI(newLang);
+            updateStaticTexts();
             // Re-renderizar conteúdo do produto no novo idioma
             if (_product) refreshProductContent();
         }
@@ -263,6 +309,7 @@
 
             // Sincronizar visual com o idioma atual
             applyLangUI(getLang());
+            updateStaticTexts();
 
             // Botões de idioma
             document.querySelectorAll('.lang-btn').forEach(function(btn) {
@@ -308,7 +355,7 @@
             var detailedDesc = getTranslatedField(product, 'detailed_description');
             var isAcc = isAccessory(product);
 
-            document.title = title + ' | Equipilates Europa';
+            document.title = title + ' | ' + l('titleSuffix');
             var metaDesc = document.querySelector('meta[name="description"]');
             if (metaDesc) metaDesc.setAttribute('content', shortDesc.substring(0, 160));
 
@@ -335,8 +382,7 @@
             if (ctaText) ctaText.textContent = l('cta');
             var ctaLink = el('.product-cta');
             if (ctaLink) {
-                var waText = encodeURIComponent('Olá, vim pelo site da Equipilates Europa e gostaria de saber mais sobre: ' + title);
-                ctaLink.href = 'https://wa.me/' + WA_PHONE + '?text=' + waText;
+                ctaLink.href = buildWaLink(l('waProductPrefix') + title);
             }
 
             var tabs = detail.querySelectorAll('.details-tab');
@@ -443,7 +489,7 @@
             var catName = product.category ? product.category.name : '';
             var isAcc = isAccessory(product);
 
-            document.title = title + ' | Equipilates Europa';
+            document.title = title + ' | ' + l('titleSuffix');
             var metaDesc = document.querySelector('meta[name="description"]');
             if (metaDesc) metaDesc.setAttribute('content', shortDesc.substring(0, 160));
 
@@ -457,9 +503,8 @@
             clone.querySelector('.feature-shipping').textContent = l('shipping');
             clone.querySelector('.feature-quality').textContent = l('quality');
 
-            var waText = encodeURIComponent('Olá, vim pelo site da Equipilates Europa e gostaria de saber mais sobre: ' + title);
             var ctaLink = clone.querySelector('#productCta');
-            ctaLink.href = 'https://wa.me/' + WA_PHONE + '?text=' + waText;
+            ctaLink.href = buildWaLink(l('waProductPrefix') + title);
             ctaLink.removeAttribute('id');
             clone.querySelector('.cta-text').textContent = l('cta');
 
