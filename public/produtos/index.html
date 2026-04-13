@@ -233,8 +233,8 @@
             return (labels[lang] && labels[lang][key]) || labels['es'][key] || key;
         }
 
-        function buildWaLink(text) {
-            return 'https://wa.me/' + WA_PHONE + '?text=' + encodeURIComponent(text);
+        function buildWaLink() {
+            return 'https://wa.me/' + WA_PHONE;
         }
 
         function updateStaticTexts() {
@@ -253,10 +253,10 @@
             if (optTab) optTab.textContent = l('optTab');
 
             var navWa = document.querySelector('[data-wa-link="nav"]');
-            if (navWa) navWa.href = buildWaLink(l('waGeneral'));
+            if (navWa) navWa.href = buildWaLink();
             var floatWa = document.querySelector('[data-wa-link="float"]');
             if (floatWa) {
-                floatWa.href = buildWaLink(l('waGeneral'));
+                floatWa.href = buildWaLink();
             }
         }
 
@@ -382,7 +382,7 @@
             if (ctaText) ctaText.textContent = l('cta');
             var ctaLink = el('.product-cta');
             if (ctaLink) {
-                ctaLink.href = buildWaLink(l('waProductPrefix') + title);
+                ctaLink.href = buildWaLink();
             }
 
             var tabs = detail.querySelectorAll('.details-tab');
@@ -504,7 +504,7 @@
             clone.querySelector('.feature-quality').textContent = l('quality');
 
             var ctaLink = clone.querySelector('#productCta');
-            ctaLink.href = buildWaLink(l('waProductPrefix') + title);
+            ctaLink.href = buildWaLink();
             ctaLink.removeAttribute('id');
             clone.querySelector('.cta-text').textContent = l('cta');
 

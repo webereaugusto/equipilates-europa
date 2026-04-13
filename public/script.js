@@ -583,9 +583,8 @@ function initHeroSlider() {
     let autoPlayTimer = null;
     
     const WHATSAPP_NUMBER = '34623055208';
-    function buildWhatsAppLink(text) {
-        const msg = encodeURIComponent(text);
-        return `https://wa.me/${WHATSAPP_NUMBER}?text=${msg}`;
+    function buildWhatsAppLink() {
+        return `https://wa.me/${WHATSAPP_NUMBER}`;
     }
 
     // Language + copy (embedded to work even on file://)
@@ -596,7 +595,7 @@ function initHeroSlider() {
                 tag: 'FABRICADO NA EUROPA. RECONHECIDO NO MUNDO.',
                 title: ['EQUIPAMENTOS DE PILATES', 'PROFISSIONAIS PARA SEU ESTÚDIO'],
                 description: 'Equipamentos de Pilates produzidos na Espanha com padrão europeu.<br/>Entrega rápida e suporte técnico em toda a União Europeia.',
-                cta1: { text: 'Solicitar Orçamento', link: buildWhatsAppLink('Olá, vim pelo site da Equipilates e gostaria de solicitar um orçamento.') },
+                cta1: { text: 'Solicitar Orçamento', link: buildWhatsAppLink() },
                 cta2: { text: 'Veja Mais', link: '#diferencial' }
             },
             {
@@ -605,7 +604,7 @@ function initHeroSlider() {
                 title: ['FIDELIDADE TOTAL', 'AO LEGADO DE JOSEPH PILATES'],
                 description: 'Equipamentos desenvolvidos rigorosamente nas medidas originais.<br/>O padrao ouro para o metodo classico.',
                 cta1: { text: 'Ver Linha Classica', link: '#classic' },
-                cta2: { text: 'Falar com Consultor', link: buildWhatsAppLink('Ola, quero entender a Linha Classica para meu estudio.') }
+                cta2: { text: 'Falar com Consultor', link: buildWhatsAppLink() }
             },
             {
                 number: '03',
@@ -613,7 +612,7 @@ function initHeroSlider() {
                 title: ['PRODUÇÃO LOCAL', 'NA EUROPA'],
                 description: 'Operação estruturada em Yecla, Espanha, com logística para toda a UE.<br/>Sem importação, sem burocracia, com suporte local.',
                 cta1: { text: 'Veja Mais', link: '#diferencial' },
-                cta2: { text: 'Falar com Especialista', link: buildWhatsAppLink('Olá, gostaria de conhecer mais sobre a Equipilates.') }
+                cta2: { text: 'Falar com Especialista', link: buildWhatsAppLink() }
             }
         ],
         'en': [
@@ -622,7 +621,7 @@ function initHeroSlider() {
                 tag: 'MADE IN EUROPE. RECOGNIZED WORLDWIDE.',
                 title: ['PILATES EQUIPMENT', 'PROFESSIONAL FOR YOUR STUDIO'],
                 description: 'Pilates equipment produced in Spain with European standards.<br/>Fast delivery and technical support across the European Union.',
-                cta1: { text: 'Request a Quote', link: buildWhatsAppLink('Hello, I would like a quote for Pilates equipment.') },
+                cta1: { text: 'Request a Quote', link: buildWhatsAppLink() },
                 cta2: { text: 'See More', link: '#diferencial' }
             },
             {
@@ -631,7 +630,7 @@ function initHeroSlider() {
                 title: ['FULL FIDELITY', 'TO JOSEPH PILATES LEGACY'],
                 description: 'Built strictly to the original measurements.<br/>The gold standard for classical method.',
                 cta1: { text: 'See Classic Line', link: '#classic' },
-                cta2: { text: 'Talk to a Consultant', link: buildWhatsAppLink('Hello, I want to understand the Classic Line for my studio.') }
+                cta2: { text: 'Talk to a Consultant', link: buildWhatsAppLink() }
             },
             {
                 number: '03',
@@ -639,7 +638,7 @@ function initHeroSlider() {
                 title: ['LOCAL PRODUCTION', 'IN EUROPE'],
                 description: 'Structured operation in Yecla, Spain, with logistics across the EU.<br/>No import bureaucracy and local technical support.',
                 cta1: { text: 'See More', link: '#diferencial' },
-                cta2: { text: 'Talk to an Expert', link: buildWhatsAppLink('Hello, I would like to learn more about Equipilates.') }
+                cta2: { text: 'Talk to an Expert', link: buildWhatsAppLink() }
             }
         ],
         'es': [
@@ -648,7 +647,7 @@ function initHeroSlider() {
                 tag: 'FABRICADO EN EUROPA. RECONOCIDO EN EL MUNDO.',
                 title: ['EQUIPOS DE PILATES', 'PROFESIONALES PARA SU ESTUDIO'],
                 description: 'Equipos de Pilates producidos en España con estándar europeo.<br/>Entrega rápida y soporte técnico en toda la Unión Europea.',
-                cta1: { text: 'Solicitar Cotización', link: buildWhatsAppLink('Hola, quisiera una cotización para equipos de Pilates.') },
+                cta1: { text: 'Solicitar Cotización', link: buildWhatsAppLink() },
                 cta2: { text: 'Ver Más', link: '#diferencial' }
             },
             {
@@ -657,7 +656,7 @@ function initHeroSlider() {
                 title: ['FIDELIDAD TOTAL', 'AL LEGADO DE JOSEPH PILATES'],
                 description: 'Equipos desarrollados estrictamente con medidas originales.<br/>El estandar de oro para el metodo clasico.',
                 cta1: { text: 'Ver Linea Clasica', link: '#classic' },
-                cta2: { text: 'Hablar con un Asesor', link: buildWhatsAppLink('Hola, quiero entender la Linea Clasica para mi estudio.') }
+                cta2: { text: 'Hablar con un Asesor', link: buildWhatsAppLink() }
             },
             {
                 number: '03',
@@ -665,7 +664,7 @@ function initHeroSlider() {
                 title: ['PRODUCCIÓN LOCAL', 'EN EUROPA'],
                 description: 'Operación estructurada en Yecla, España, con logística para toda la UE.<br/>Sin importación, sin burocracia y con soporte local.',
                 cta1: { text: 'Ver Más', link: '#diferencial' },
-                cta2: { text: 'Hablar con Experto', link: buildWhatsAppLink('Hola, me gustaría conocer más sobre Equipilates.') }
+                cta2: { text: 'Hablar con Experto', link: buildWhatsAppLink() }
             }
         ],
         'de': [
@@ -674,7 +673,7 @@ function initHeroSlider() {
                 tag: 'IN EUROPA HERGESTELLT. WELTWEIT ANERKANNT.',
                 title: ['PILATES-GERÄTE', 'PROFESSIONELL FÜR IHR STUDIO'],
                 description: 'Pilates-Geräte aus spanischer Produktion mit europäischem Standard.<br/>Schnelle Lieferung und technischer Support in der gesamten EU.',
-                cta1: { text: 'Angebot Anfordern', link: buildWhatsAppLink('Hallo, ich möchte ein Angebot für Pilates-Geräte.') },
+                cta1: { text: 'Angebot Anfordern', link: buildWhatsAppLink() },
                 cta2: { text: 'Mehr Sehen', link: '#diferencial' }
             },
             {
@@ -683,7 +682,7 @@ function initHeroSlider() {
                 title: ['TOTALE TREUE', 'ZUM VERMACHTNIS VON JOSEPH PILATES'],
                 description: 'Gerate streng nach Originalmassen entwickelt.<br/>Der Goldstandard fur die klassische Methode.',
                 cta1: { text: 'Klassische Linie Sehen', link: '#classic' },
-                cta2: { text: 'Mit Berater Sprechen', link: buildWhatsAppLink('Hallo, ich mochte die Klassische Linie verstehen.') }
+                cta2: { text: 'Mit Berater Sprechen', link: buildWhatsAppLink() }
             },
             {
                 number: '03',
@@ -691,7 +690,7 @@ function initHeroSlider() {
                 title: ['LOKALE PRODUKTION', 'IN EUROPA'],
                 description: 'Strukturierte Operation in Yecla, Spanien, mit Logistik für die gesamte EU.<br/>Ohne Importbürokratie und mit lokalem Support.',
                 cta1: { text: 'Mehr Sehen', link: '#diferencial' },
-                cta2: { text: 'Mit Experten Sprechen', link: buildWhatsAppLink('Hallo, ich möchte mehr über Equipilates erfahren.') }
+                cta2: { text: 'Mit Experten Sprechen', link: buildWhatsAppLink() }
             }
         ]
     };
@@ -1428,7 +1427,7 @@ function initUpgradeWizard() {
     const mailtoBtn = document.getElementById('wizardMailtoCta');
 
     const WHATSAPP_NUMBER = '34623055208';
-    const wa = (text) => `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(text)}`;
+    const wa = () => `https://wa.me/${WHATSAPP_NUMBER}`;
 
     const kitBySpace = {
         'Ate 25m2': ['Reformer', 'Chair', 'Acessorios'],
@@ -1502,7 +1501,7 @@ function initUpgradeWizard() {
             '',
             buildMessage(space, goal, current, rec)
         ].filter(Boolean).join('\n'));
-        window.location.href = `mailto:email@equipilates.com.br?subject=${subject}&body=${body}`;
+        window.location.href = `mailto:sales@equipilateseurope.com?subject=${subject}&body=${body}`;
     });
 
     form.addEventListener('submit', (e) => {
@@ -1515,7 +1514,7 @@ function initUpgradeWizard() {
         const rec = recommend(space, goal, current);
         setResultHtml(rec);
 
-        const link = wa(buildMessage(space, goal, current, rec));
+        const link = wa();
         window.open(link, '_blank', 'noopener');
     });
 }
