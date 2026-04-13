@@ -2180,16 +2180,43 @@ function initFactoryEuropeLightbox() {
     const imgEl = document.getElementById('factoryEuropeLightboxImg');
     const closeTriggers = lightbox.querySelectorAll('[data-factory-lightbox-close]');
     const thumbs = section.querySelectorAll('.factory-europe-item');
+    const btnPrev = lightbox.querySelector('[data-factory-lightbox-prev]');
+    const btnNext = lightbox.querySelector('[data-factory-lightbox-next]');
 
-    function openLightbox(src, alt) {
-        if (!imgEl) return;
-        imgEl.src = src;
-        imgEl.alt = alt || '';
+    const slides = Array.from(thumbs).map((btn) => {
+        const thumb = btn.querySelector('img');
+        return {
+            src: (thumb && (thumb.getAttribute('src') || '')) || '',
+            alt: (thumb && thumb.getAttribute('alt')) || '',
+        };
+    });
+
+    let currentIdx = 0;
+
+    function showSlide(index) {
+        if (!imgEl || slides.length === 0) return;
+        currentIdx = ((index % slides.length) + slides.length) % slides.length;
+        const s = slides[currentIdx];
+        imgEl.src = s.src;
+        imgEl.alt = s.alt;
+    }
+
+    function openLightboxAt(index) {
+        if (!imgEl || slides.length === 0) return;
+        showSlide(index);
         lightbox.classList.add('is-open');
         lightbox.setAttribute('aria-hidden', 'false');
         document.body.style.overflow = 'hidden';
         const closeBtn = lightbox.querySelector('.factory-lightbox-close');
         if (closeBtn) closeBtn.focus();
+    }
+
+    function goPrev() {
+        showSlide(currentIdx - 1);
+    }
+
+    function goNext() {
+        showSlide(currentIdx + 1);
     }
 
     function closeLightbox() {
@@ -2202,14 +2229,25 @@ function initFactoryEuropeLightbox() {
         document.body.style.overflow = '';
     }
 
-    thumbs.forEach((btn) => {
+    thumbs.forEach((btn, i) => {
         btn.addEventListener('click', () => {
-            const thumb = btn.querySelector('img');
-            if (!thumb) return;
-            const src = thumb.currentSrc || thumb.getAttribute('src') || '';
-            openLightbox(src, thumb.getAttribute('alt') || '');
+            openLightboxAt(i);
         });
     });
+
+    if (btnPrev) btnPrev.addEventListener('click', (e) => { e.stopPropagation(); goPrev(); });
+    if (btnNext) btnNext.addEventListener('click', (e) => { e.stopPropagation(); goNext(); });
+
+    if (imgEl) {
+        imgEl.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const rect = imgEl.getBoundingClientRect();
+            if (rect.width <= 0) return;
+            const x = e.clientX - rect.left;
+            if (x < rect.width / 2) goPrev();
+            else goNext();
+        });
+    }
 
     closeTriggers.forEach((el) => {
         el.addEventListener('click', (e) => {
@@ -2219,8 +2257,19 @@ function initFactoryEuropeLightbox() {
     });
 
     document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && lightbox.classList.contains('is-open')) {
+        if (!lightbox.classList.contains('is-open')) return;
+        if (e.key === 'Escape') {
             closeLightbox();
+            return;
+        }
+        if (e.key === 'ArrowLeft') {
+            e.preventDefault();
+            goPrev();
+            return;
+        }
+        if (e.key === 'ArrowRight') {
+            e.preventDefault();
+            goNext();
         }
     });
 }

@@ -18,6 +18,8 @@
   "a11y.goToSlide": "Go to slide {n}",
   "a11y.goToTestimonial": "Go to testimonial {n}",
   "a11y.factoryLightboxClose": "Close enlarged image",
+  "a11y.factoryLightboxPrev": "Previous image",
+  "a11y.factoryLightboxNext": "Next image",
 
   "hero.tag": "MADE IN EUROPE. RECOGNIZED WORLDWIDE.",
   "hero.title1": "PROFESSIONAL PILATES",

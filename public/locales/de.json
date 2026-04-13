@@ -18,6 +18,8 @@
   "a11y.goToSlide": "Zu Folie {n}",
   "a11y.goToTestimonial": "Zum Testimonial {n}",
   "a11y.factoryLightboxClose": "Vergrößertes Bild schließen",
+  "a11y.factoryLightboxPrev": "Vorheriges Bild",
+  "a11y.factoryLightboxNext": "Nächstes Bild",
 
   "hero.tag": "IN EUROPA HERGESTELLT. WELTWEIT ANERKANNT.",
   "hero.title1": "PROFESSIONELLE PILATES",

@@ -18,6 +18,8 @@
   "a11y.goToSlide": "Ir para slide {n}",
   "a11y.goToTestimonial": "Ir para depoimento {n}",
   "a11y.factoryLightboxClose": "Fechar imagem ampliada",
+  "a11y.factoryLightboxPrev": "Imagem anterior",
+  "a11y.factoryLightboxNext": "Próxima imagem",
 
   "hero.tag": "FABRICADO NA EUROPA. RECONHECIDO NO MUNDO.",
   "hero.title1": "EQUIPAMENTOS DE PILATES",

@@ -9228,6 +9228,68 @@ button.factory-europe-item {
     max-height: min(92vh, 900px);
     margin: auto;
     animation: factoryLightboxIn 0.35s cubic-bezier(0.22, 1, 0.36, 1) both;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.factory-lightbox-figure {
+    position: relative;
+    display: inline-block;
+    max-width: 100%;
+    line-height: 0;
+}
+
+.factory-lightbox-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 4;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: rgba(0, 0, 0, 0.55);
+    color: #fff;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s ease, transform 0.2s ease;
+    padding: 0;
+    border: 1px solid rgba(255, 255, 255, 0.25);
+}
+
+.factory-lightbox-nav:hover {
+    background: var(--caramel);
+    color: #111;
+}
+
+.factory-lightbox-nav:focus-visible {
+    outline: 2px solid var(--caramel);
+    outline-offset: 2px;
+}
+
+.factory-lightbox-prev {
+    left: 8px;
+}
+
+.factory-lightbox-next {
+    right: 8px;
+}
+
+@media (max-width: 600px) {
+    .factory-lightbox-nav {
+        width: 42px;
+        height: 42px;
+    }
+
+    .factory-lightbox-prev {
+        left: 4px;
+    }
+
+    .factory-lightbox-next {
+        right: 4px;
+    }
 }
 
 @keyframes factoryLightboxIn {
@@ -9249,6 +9311,9 @@ button.factory-europe-item {
     height: auto;
     object-fit: contain;
     box-shadow: 0 24px 80px rgba(0, 0, 0, 0.55);
+    cursor: ew-resize;
+    user-select: none;
+    -webkit-user-select: none;
 }
 
 .factory-lightbox-close {
